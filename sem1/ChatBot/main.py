@@ -346,13 +346,13 @@ async def generate_follow_up(question, user_response, max_attempts=5):
     fallback_question = "Czy możesz powiedzieć mi więcej na ten temat?"
     return fallback_question
 
-def diagnose_depression(responses, question_count):
+def diagnose_depression(responses):
     total_score = sum(1 for _, _, is_negative in responses if is_negative)
     depression_count = len([1 for _, _, is_negative in responses if is_negative])
     if total_score >= 5:
-        return f"Twoje odpowiedzi sugerują, że możesz mieć objawy depresji. Zalecamy konsultację z psychologiem. Liczba odpowiedzi sugerujących depresję: {depression_count}/{question_count}"
+        return f"Twoje odpowiedzi sugerują, że możesz mieć objawy depresji. Zalecamy konsultację z psychologiem. Liczba odpowiedzi sugerujących depresję: {depression_count}"
     else:
-        return f"Twoje odpowiedzi nie sugerują poważnych objawów depresji, ale jeśli masz jakiekolwiek wątpliwości, skonsultuj się z profesjonalistą. Liczba odpowiedzi sugerujących depresję: {depression_count}/{question_count}"
+        return f"Twoje odpowiedzi nie sugerują poważnych objawów depresji, ale jeśli masz jakiekolwiek wątpliwości, skonsultuj się z profesjonalistą. Liczba odpowiedzi sugerujących depresję: {depression_count}"
 
 async def cancel(update: Update, context: CallbackContext) -> int:
     await update.message.reply_text('Anulowano rozmowę diagnostyczną. Jeśli potrzebujesz pomocy, skontaktuj się z profesjonalistą.')
